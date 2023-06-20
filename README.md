@@ -1,12 +1,16 @@
 Task 2:
 
 Firstly login into AWS Account and create two ubuntu 20.04LTS Server one is master and other is slave.
+
 Install jenkins on both the server.
+
 Register the slave agent with the Jenkins master.
    * Manage jenkins
    * create node
    * Add username and secret file as well as label that defines the agent node and wait for server when it comes to online.
+
 Create github webhook that will triggers the jenkins pipeline whenever new commits happenends.
+     
      * Go to your GitHub repository's settings.
      * Navigate to "Webhooks" > "Add webhook."
      * Set the payload URL to: http://<jenkins-url>/github-webhook/
@@ -18,15 +22,15 @@ Now we are going to create a job:
   * In the Jenkins dashboard, create a new pipeline job.
   * Add the Github project with github url
     
-Now we are going to write declarative pipeline
-
-
-pipeline {
-    agent { label 'node-agent' }
-    stages {
+Now we are going to write declarative pipeline that will install Chrome browser and chromedriver.
+ 
+ 
+    pipeline {
+     agent { label 'node-agent' }
+      stages {
         stage('Code') {
             steps{
-                git url: 'github-url' , branch: 'main'
+                git url: 'github-url' , branch: 'master'
                  }
                         }
         stage('Install Chrome and chromedriver'){
@@ -34,8 +38,7 @@ pipeline {
                sh 'sudo apt-get update'
                 sh 'sudo apt-get install -y curl unzip'
                 sh 'curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -'
-                sh 'sudo sh -c "echo deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main > 
-                /etc/apt/sources.list.d/google-chrome.list"'
+                sh 'sudo sh -c "echo deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main > /etc/apt/sources.list.d/google-chrome.list"'
                 sh 'sudo apt-get update'
                 sh 'sudo apt-get install -y google-chrome-stable'
                 sh 'LATEST=$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE)'
@@ -58,6 +61,6 @@ pipeline {
             }
             
         }
-    }
-}
-Here replace 'node-agent' with the appropriate label assigned to the slave agent in Jenkins.
+    }}
+
+Here replace 'node-agent' with the appropriate label assigned to the slave agent in Jenkins and then save the pipeline and build it.
