@@ -32,7 +32,8 @@ pipeline {
                sh 'sudo apt-get update'
                 sh 'sudo apt-get install -y curl unzip'
                 sh 'curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -'
-                sh 'sudo sh -c "echo deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main > /etc/apt/sources.list.d/google-chrome.list"'
+                sh 'sudo sh -c "echo deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main > 
+                /etc/apt/sources.list.d/google-chrome.list"'
                 sh 'sudo apt-get update'
                 sh 'sudo apt-get install -y google-chrome-stable'
                 sh 'LATEST=$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE)'
