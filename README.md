@@ -19,7 +19,6 @@ Now we are going to create a job:
   * Add the Github project with github url
     
 Now we are going to write declarative pipeline
-
 pipeline {
     agent { label 'node-agent' }
     stages {
